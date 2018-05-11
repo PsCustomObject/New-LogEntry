@@ -149,7 +149,7 @@
 	# Write log messages to file
 	if (([string]::IsNullOrEmpty($logFilePath) -eq $false) -and ($BufferOnly -ne $true))
 	{
-		Start-Sleep -Milliseconds 1000
+		Start-Sleep -Milliseconds 500
 		
 		Add-Content -Path $logFilePath -Value $tmpMessage
 	}
