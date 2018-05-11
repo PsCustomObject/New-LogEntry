@@ -149,9 +149,7 @@
 	# Write log messages to file
 	if (([string]::IsNullOrEmpty($logFilePath) -eq $false) -and ($BufferOnly -ne $true))
 	{
-		Start-Sleep -Milliseconds 500
-		
-		Add-Content -Path $logFilePath -Value $tmpMessage
+		Out-File -InputObject $tmpMessage -FilePath $LogFilePath -Append -Encoding 'utf8'
 	}
 	
 	# Save message to buffer
