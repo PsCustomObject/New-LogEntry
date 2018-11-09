@@ -43,36 +43,32 @@
 		Saves log message to a variable for later use
 	
 	.PARAMETER NoTimeStamp
-		Does not prepend the message with the current date
+		Suppresses timestamp in log message
 	
 	.EXAMPLE
 		Example 1: Write a log message to log file
-		PS C:\> New-LogEntry -logMessage "Test Entry"
+		PS C:\> New-LogEntry -LogMessage "Test Entry"
 		
 		This will simply output the message "Test Entry" in the logfile
 		
 		Example 2: Write a log message to console only
-		PS C:\> New-LogEntry -logMessage "Test Entry" -ConsoleOnly
+		PS C:\> New-LogEntry -LogMessage "Test Entry" -ConsoleOnly
 		
 		This will print Test Entry on console
 		
 		Example 3: Write an error log message
-		New-LogEntry -logMessage "Test Log Error" -isErrorMessage
+		New-LogEntry -LogMessage "Test Log Error" -isErrorMessage
 		
 		This will prepend the [Error] tag in front of
 		log message like:
 		
 		[06-21 03:20:57] : [Error] - Test Log Error
-	
-	.NOTES
-		There 1 second delay between function execution
-		and call to log file to avoi potentail file locks
-		under heavy logging activities.
 #>
 	
 	[CmdletBinding()]
 	param
 	(
+		[Parameter(Mandatory = $true)]
 		[AllowNull()]
 		[Alias('Log', 'Message')]
 		[string]
@@ -92,11 +88,14 @@
 		[switch]
 		$BufferOnly = $false,
 		[switch]
-		$SaveToBuffer = $false
+		$SaveToBuffer = $false,
+		[switch]
+		$NoTimeStamp = $false
 	)
 	
-	# Use current path if no filepath is specified
-	if ([string]::IsNullOrEmpty($logFilePath) -eq $true)
+	# Use script path if no filepath is specified
+	if (([string]::IsNullOrEmpty($logFilePath) -eq $true) -and
+		(!($ConsoleOnly)))
 	{
 		$logFilePath = $PSCommandPath + '-LogFile-' + $(Get-Date -Format 'yyyy-MM-dd') + '.log'
 	}
@@ -107,30 +106,55 @@
 		return
 	}
 	
-	# Format message according to switches used
-	$tmpMessage = $logMessage
-	
-	if ($isErrorMessage -eq $true)
+	# Format log message
+	if (($isErrorMessage) -and
+		(!($ConsoleOnly)))
 	{
-		$tmpMessage = "[$(Get-Date -Format 'MM-dd hh:mm:ss')] : [Error] - $logMessage"
+		if ($NoTimeStamp)
+		{
+			$tmpMessage = "[Error] - $logMessage"
+		}
+		else
+		{
+			$tmpMessage = "[$(Get-Date -Format 'MM-dd hh:mm:ss')] : [Error] - $logMessage"
+		}
 	}
-	elseif ($IsWarningMessage -eq $true)
+	elseif (($IsWarningMessage -eq $true) -and
+		(!($ConsoleOnly)))
 	{
-		$tmpMessage = "[$(Get-Date -Format 'MM-dd hh:mm:ss')] : [Warning] - $logMessage"
+		if ($NoTimeStamp)
+		{
+			$tmpMessage = "[Warning] - $logMessage"
+		}
+		else
+		{
+			$tmpMessage = "[$(Get-Date -Format 'MM-dd hh:mm:ss')] : [Warning] - $logMessage"
+		}
 	}
 	else
 	{
-		$tmpMessage = "[$(Get-Date -Format 'MM-dd hh:mm:ss')] : $logMessage"
+		if (!($ConsoleOnly))
+		{
+			if ($NoTimeStamp)
+			{
+				$tmpMessage = $logMessage
+			}
+			else
+			{
+				$tmpMessage = "[$(Get-Date -Format 'MM-dd hh:mm:ss')] : $logMessage"
+			}
+		}
 	}
 	
 	# Write log messages to console
-	if (($ConsoleOnly -eq $true) -or ($WriteToConsole -eq $true))
+	if (($ConsoleOnly) -or
+		($WriteToConsole))
 	{
-		if ($IsError -eq $true)
+		if ($IsErrorMessage)
 		{
 			Write-Error $logMessage
 		}
-		elseif ($IsWarningMessage -eq $true)
+		elseif ($IsWarningMessage)
 		{
 			Write-Warning $logMessage
 		}
@@ -147,15 +171,24 @@
 	}
 	
 	# Write log messages to file
-	if (([string]::IsNullOrEmpty($logFilePath) -eq $false) -and ($BufferOnly -ne $true))
+	if (([string]::IsNullOrEmpty($logFilePath) -eq $false) -and
+		($BufferOnly -ne $true))
 	{
-		Out-File -InputObject $tmpMessage -FilePath $LogFilePath -Append -Encoding 'utf8'
+		$paramOutFile = @{
+			InputObject = $tmpMessage
+			FilePath    = $LogFilePath
+			Append	    = $true
+			Encoding    = 'utf8'
+		}
+		
+		Out-File @paramOutFile
 	}
 	
 	# Save message to buffer
-	if (($BufferOnly -eq $true) -or ($SaveToBuffer -eq $true))
+	if (($BufferOnly -eq $true) -or
+		($SaveToBuffer -eq $true))
 	{
-		$script:messageBuffer += $tmpMessage + "`r`n"
+		$script:messageBuffer += $tmpMessage + '`r`n'
 		
 		# Remove blank lines
 		$script:messageBuffer = $script:messageBuffer -creplace '(?m)^\s*\r?\n', ''
