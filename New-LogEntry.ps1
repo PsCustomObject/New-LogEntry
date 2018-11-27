@@ -10,8 +10,7 @@
 		The BufferOnly parameter will not write message neither to console or logfile but save to a temporary buffer which can then be piped to file or printed to screen.
 	
 	.PARAMETER logMessage
-		A string containing the message PowerShell should log for example
-		about current action being performed.
+		A string containing the message PowerShell should log for example about current action being performed.
 	
 	.PARAMETER WriteToConsole
 		Writes the log message both to the log file and the interactive
@@ -63,32 +62,43 @@
 		log message like:
 		
 		[06-21 03:20:57] : [Error] - Test Log Error
+	
+	.NOTES
+		Additional information about the function.
 #>
 	
-	[CmdletBinding()]
+	[CmdletBinding(ConfirmImpact = 'High',
+				   PositionalBinding = $true,
+				   SupportsShouldProcess = $true)]
 	param
 	(
-		[Parameter(Mandatory = $true)]
+		[Parameter(Mandatory = $true,
+				   ValueFromPipeline = $true)]
 		[AllowNull()]
 		[Alias('Log', 'Message')]
 		[string]
 		$LogMessage,
+		[Alias('Print', 'Echo', 'Console')]
 		[switch]
 		$WriteToConsole = $false,
 		[AllowNull()]
-		[Alias('Path', 'LogFile', 'File')]
+		[Alias('Path', 'LogFile', 'File', 'LogPath')]
 		[string]
 		$LogFilePath,
+		[Alias('Error', 'IsError', 'WriteError')]
 		[switch]
 		$IsErrorMessage = $false,
+		[Alias('Warning', 'IsWarning', 'WriteWarning')]
 		[switch]
 		$IsWarningMessage = $false,
+		[Alias('EchoOnly')]
 		[switch]
 		$ConsoleOnly = $false,
 		[switch]
 		$BufferOnly = $false,
 		[switch]
 		$SaveToBuffer = $false,
+		[Alias('Nodate', 'NoStamp')]
 		[switch]
 		$NoTimeStamp = $false
 	)
