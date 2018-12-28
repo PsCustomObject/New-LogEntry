@@ -18,6 +18,7 @@ Documentation of the function is available through online PowerShell help some s
 # Will write message to C:\Temp\TestLog.log
 New-LogEntry -LogMessage 'This is a test message' -LogFilePath  'C:\Temp\TestLog.log'
 ```
+
 Content of the *TestLog.log* file will be
 
 > [12-28 06:47:55] : This is a test message
@@ -79,3 +80,11 @@ $messageBuffer
 ```
 
 **Note:** When using the *BufferOnly* switch and writing content on screen everything will be printed on a single line but when piping buffer's content to a file it will be properly formatted.
+
+### Write message to buffer and console
+
+```powershell
+New-LogEntry -LogMessage 'This is another message in buffer' -BufferOnly -Console
+```
+
+The above will print the message to STOUT and save it to the buffer for later use
