@@ -21,7 +21,7 @@ New-LogEntry -LogMessage 'This is a test message' -LogFilePath  'C:\Temp\TestLog
 
 Content of the *TestLog.log* file will be
 
-> [12-28-2018 06:47:55] : This is a test message
+> [12-28-18 06:47:55] : This is a test message
 
 ### Write message to log file without time stamp
 
@@ -43,7 +43,7 @@ New-LogEntry -LogMessage "This is a Warning message" -IsWarningMessage -LogFileP
 
 Content of the *TestLog.log* file will be
 
-> [12-28-2018 06:52:55] : [Warning] - This is a Warning message
+> [12-28-18 06:52:55] : [Warning] - This is a Warning message
 
 ### Write error message to log file
 
@@ -54,7 +54,7 @@ New-LogEntry -LogMessage "This is an Error message" -IsErrorMessage -LogFilePath
 
 Content of the *TestLog.log* file will be
 
-> [12-28-2018 06:53:49] : [Error] - This is an Error message
+> [12-28-18 06:53:49] : [Error] - This is an Error message
 
 ### Write message to both log and console
 
@@ -75,8 +75,8 @@ New-LogEntry -LogMessage 'This is a second message in buffer' -BufferOnly
 # Print buffer content
 $messageBuffer
 
-[12-28-2018 06:56:25] : This message will only be in buffer
-[12-28-2018 06:57:38] : This is another message in buffer
+[12-28-18 06:56:25] : This message will only be in buffer
+[12-28-18 06:57:38] : This is another message in buffer
 ```
 
 **Note:** When using the *BufferOnly* switch and writing content on screen everything will be printed on a single line but when piping buffer's content to a file it will be properly formatted.

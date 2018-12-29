@@ -107,7 +107,7 @@
 	if (([string]::IsNullOrEmpty($logFilePath) -eq $true) -and
 		(!($ConsoleOnly)))
 	{
-		$logFilePath = $PSCommandPath + '-LogFile-' + $(Get-Date -Format 'yyyy-MM-dd') + '.log'
+		$logFilePath = $PSCommandPath + '-LogFile-' + $(Get-Date -Format 'yy-MM-dd') + '.log'
 	}
 	
 	# Don't do anything on empty Log Message
@@ -126,7 +126,7 @@
 		}
 		else
 		{
-			$tmpMessage = "[$(Get-Date -Format 'MM-dd-yyyy hh:mm:ss')] : [Error] - $logMessage"
+			$tmpMessage = "[$(Get-Date -Format 'MM-dd-yy hh:mm:ss')] : [Error] - $logMessage"
 		}
 	}
 	elseif (($IsWarningMessage -eq $true) -and
@@ -138,7 +138,7 @@
 		}
 		else
 		{
-			$tmpMessage = "[$(Get-Date -Format 'MM-dd-yyyy hh:mm:ss')] : [Warning] - $logMessage"
+			$tmpMessage = "[$(Get-Date -Format 'MM-dd-yy hh:mm:ss')] : [Warning] - $logMessage"
 		}
 	}
 	else
@@ -151,7 +151,7 @@
 			}
 			else
 			{
-				$tmpMessage = "[$(Get-Date -Format 'MM-dd-yyyy hh:mm:ss')] : $logMessage"
+				$tmpMessage = "[$(Get-Date -Format 'MM-dd-yy hh:mm:ss')] : $logMessage"
 			}
 		}
 	}

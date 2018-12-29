@@ -1,6 +1,6 @@
 # New-LogEntry - Change History
 
-- 1.1.2 - Time stamp will now include year in the format MM-dd-yyyy
+- 1.1.2 - Time stamp will now include year in the format MM-dd-yy
 - 1.1.1 - Function now supports *ShouldProcess* directive
   - Introduced support for passing log messages via PipeLine
   - Implemented additional aliases
