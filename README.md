@@ -87,4 +87,4 @@ $messageBuffer
 New-LogEntry -LogMessage 'This is another message in buffer' -BufferOnly -Console
 ```
 
-The above will print the message to STOUT and save it to the buffer for later use
+The above will print the message to stdout and save it to the buffer for later use
