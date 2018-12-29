@@ -126,7 +126,7 @@
 		}
 		else
 		{
-			$tmpMessage = "[$(Get-Date -Format 'MM-dd hh:mm:ss')] : [Error] - $logMessage"
+			$tmpMessage = "[$(Get-Date -Format 'MM-dd-yyyy hh:mm:ss')] : [Error] - $logMessage"
 		}
 	}
 	elseif (($IsWarningMessage -eq $true) -and
@@ -138,7 +138,7 @@
 		}
 		else
 		{
-			$tmpMessage = "[$(Get-Date -Format 'MM-dd hh:mm:ss')] : [Warning] - $logMessage"
+			$tmpMessage = "[$(Get-Date -Format 'MM-dd-yyyy hh:mm:ss')] : [Warning] - $logMessage"
 		}
 	}
 	else
@@ -151,7 +151,7 @@
 			}
 			else
 			{
-				$tmpMessage = "[$(Get-Date -Format 'MM-dd hh:mm:ss')] : $logMessage"
+				$tmpMessage = "[$(Get-Date -Format 'MM-dd-yyyy hh:mm:ss')] : $logMessage"
 			}
 		}
 	}
