@@ -64,7 +64,7 @@
 		[06-21 03:20:57] : [Error] - Test Log Error
 	
 	.NOTES
-		Additional information about the function.
+		Function supports both PowerShell and PowerShell core
 #>
 	
 	[CmdletBinding(ConfirmImpact = 'High',
