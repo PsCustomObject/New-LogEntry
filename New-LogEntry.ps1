@@ -117,11 +117,11 @@
         [Parameter(ParameterSetName = 'BufferOnly')]
         [switch]
         $BufferOnly,
-        [Parameter(ParameterSetName = 'BufferOnly')]
         [Parameter(ParameterSetName = 'Error')]
         [Parameter(ParameterSetName = 'Info')]
         [Parameter(ParameterSetName = 'NoConsole')]
         [Parameter(ParameterSetName = 'Warning')]
+        [Alias('SuppressTag')]
         [switch]
         $NoTag
     )
@@ -158,8 +158,21 @@
         {
             'Info'
             {
-                # Format log message
-                [string]$tmpLogMessage = '{0} - [INFO]: {1}' -f $currentDate, $LogMessage
+                switch ($PSBoundParameters.Keys)
+                {
+                    'NoTag'
+                    {
+                        # Format log message
+                        [string]$tmpLogMessage = '{0} - : {1}' -f $currentDate, $LogMessage
+                        
+                        break
+                    }
+                    default
+                    {
+                        # Format log message
+                        [string]$tmpLogMessage = '{0} - [INFO]: {1}' -f $currentDate, $LogMessage
+                    }
+                }
                 
                 # Append to log
                 $paramOutFile.Add('InputObject', $tmpLogMessage)
@@ -176,8 +189,21 @@
             }
             'Warning'
             {
-                # Format log message
-                [string]$tmpLogMessage = '{0} - [WARNING]:  {1}' -f $currentDate, $LogMessage
+                switch ($PSBoundParameters.Keys)
+                {
+                    'NoTag'
+                    {
+                        # Format log message
+                        [string]$tmpLogMessage = '{0} - : {1}' -f $currentDate, $LogMessage
+                        
+                        break
+                    }
+                    default
+                    {
+                        # Format log message
+                        [string]$tmpLogMessage = '{0} - [WARNING]:  {1}' -f $currentDate, $LogMessage
+                    }
+                }
                 
                 # Append to log
                 $paramOutFile.Add('InputObject', $tmpLogMessage)
@@ -194,8 +220,22 @@
             }
             'Error'
             {
-                # Format log message
-                [string]$tmpLogMessage = '{0} - [ERROR]: {1}' -f $currentDate, $LogMessage
+                
+                switch ($PSBoundParameters.Keys)
+                {
+                    'NoTag'
+                    {
+                        # Format log message
+                        [string]$tmpLogMessage = '{0} - : {1}' -f $currentDate, $LogMessage
+                        
+                        break
+                    }
+                    default
+                    {
+                        # Format log message
+                        [string]$tmpLogMessage = '{0} - [ERROR]: {1}' -f $currentDate, $LogMessage
+                    }
+                }
                 
                 # Append to log
                 $paramOutFile.Add('InputObject', $tmpLogMessage)
@@ -203,7 +243,7 @@
                 # Suppress console output
                 if (!($NoConsole))
                 {
-                    Write-Error -Message $tmpLogMessage -Category 'WriteError'
+                    Write-Error -Message $tmpLogMessage
                 }
                 
                 Out-File @paramOutFile
@@ -240,6 +280,3 @@
         }
     }
 }
-#DONE: Add category to write-error as https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/write-error?view=powershell-7
-#TODO: Implement -NoTag parameter
-#TODO: Implement CategoryReason in error message
