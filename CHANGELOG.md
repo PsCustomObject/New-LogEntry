@@ -1,6 +1,10 @@
 # New-LogEntry - Change History
 
-# Version 2.0.1
+## Version 2.0.2
+
+- Removed the *-NoTimeStamp* parameter from function
+
+## Version 2.0.1
 
 - Fixed typo in header section
 - Updated header section with missing examples
