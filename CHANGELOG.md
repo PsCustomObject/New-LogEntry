@@ -1,5 +1,11 @@
 # New-LogEntry - Change History
 
+# Version 2.0.1
+
+- Fixed typo in header section
+- Updated header section with missing examples
+- Added missing comment based help
+
 ## Version 2.0.0
 
 - Function now uses [Mutex objects](https://docs.microsoft.com/en-us/windows/win32/sync/mutex-objects) to avoid situations where function was called before lock on log file was released causing exceptions to be thrown and log lines to be missed

@@ -45,19 +45,15 @@
         message will be repended with the [Error] tag
     
     .PARAMETER BufferOnly
-        A description of the BufferOnly parameter.
+        When parameter is specified log message will only be written to a temporary buffer that can be forwarded to file or printed on screen.
     
     .PARAMETER NoTag
         When parameter is specified tag representing message severity will be not be part of the log message.
     
     .EXAMPLE
-        PS C:\> Add-LogEntry
-    
-    .OUTPUTS
-        string, string, void, object, string
-    
-    .NOTES
-        Additional information about the function.
+        PS C:\> New-LogEntry -LogMessage 'This is a test message' -LogFilePath  'C:\Temp\TestLog.log'
+
+        [02.29.2020 08:27:01 AM] - [INFO]: This is a test message
 #>
     
     [CmdletBinding(DefaultParameterSetName = 'Info')]

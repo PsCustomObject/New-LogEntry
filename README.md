@@ -1,4 +1,4 @@
-# New-LogEntry Function
+# New-LogEntry Function - Version 2.0.1
 
 New-LogEntry is a flexible yet powerful PowerShell function aimed to make scripts logging and troubleshooting an easier process. 
 
@@ -53,7 +53,7 @@ Content of the *TestLog.log* file will be
 
 ```powershell
 # Will write message to C:\Temp\TestLog.log
-New-LogEntry -LogMessage "This is a Warning message" -IsWarningMessage -LogFilePath  'C:\Temp\TestLog.log'
+New-LogEntry -LogMessage 'This is a Warning message' -IsWarningMessage -LogFilePath  'C:\Temp\TestLog.log'
 ```
 
 Content of the *TestLog.log* file will be
@@ -64,7 +64,7 @@ Content of the *TestLog.log* file will be
 
 ```powershell
 # Will write message to C:\Temp\TestLog.log
-New-LogEntry -LogMessage "This is an Error message" -IsErrorMessage -LogFilePath  'C:\Temp\TestLog.log'
+New-LogEntry -LogMessage 'This is an Error message' -IsErrorMessage -LogFilePath  'C:\Temp\TestLog.log'
 ```
 
 Content of the *TestLog.log* file will be
