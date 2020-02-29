@@ -25,7 +25,7 @@ New-LogEntry -LogMessage 'This is a test message' -LogFilePath  'C:\Temp\TestLog
 
 Content of the *TestLog.log* file will be
 
-> [02.29.2020 08:27:01 AM] - [INFO]: This is a test message
+> [02.29.2020 08:27:01 AM] - [Info]: This is a test message
 
 ### Write message to log file without time stamp
 
@@ -36,7 +36,7 @@ New-LogEntry -LogMessage 'This is a test message without time stamp' -NoTimeStam
 
 Content of the *TestLog.log* file will be
 
-> [INFO] : This is a test message without time stamp
+> [Info] : This is a test message without time stamp
 
 ### Write message to log file without tag
 
