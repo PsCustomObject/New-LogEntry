@@ -4,7 +4,7 @@ New-LogEntry is a flexible yet powerful PowerShell function aimed to make script
 
 **New-LogEntry** by default will write log messages both to the configured log file and the host console making eliminating the need to *follow* log files during debug of production code.
 
-Starting with version **2.0.0** of the function all log messages will be prepended with an of the available tags:
+Starting with version **2.0.0** of the function all log messages will be prepended with an of the available tags unless the *-NoTag* parameter is used:
 
 - **[INFO]** default tag for all log messages
 - **[WARNING]** which will also use *Write-Warning* cmdlet to print a warning on console
