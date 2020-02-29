@@ -6,9 +6,9 @@ New-LogEntry is a flexible yet powerful PowerShell function aimed to make script
 
 Starting with version **2.0.0** of the function all log messages will be prepended with an of the available tags unless the *-NoTag* parameter is used:
 
-- **[INFO]** default tag for all log messages
-- **[WARNING]** which will also use *Write-Warning* cmdlet to print a warning on console
-- **[ERROR]** which will also use *Write-Error* cmdlet to print an error message on console 
+- **[Info]** default tag for all log messages
+- **[Warning]** which will also use *Write-Warning* cmdlet to print a warning on console
+- **[Error]** which will also use *Write-Error* cmdlet to print an error message on console 
 
 If no log file is specified function will default to  current script path on a file named *ScriptName-LogFile-CurrentDate.log*
 
@@ -81,8 +81,8 @@ New-LogEntry -LogMessage 'This is a second message in buffer' -BufferOnly
 # Print buffer content
 $messageBuffer
 
-[02.29.2020 08:27:01 AM] : This message will only be in buffer
-[02.29.2020 08:29:03 AM] : This is another message in buffer
+[02.29.2020 08:27:01 AM] [Info] : This message will only be in buffer
+[02.29.2020 08:29:03 AM] [Info] : This is another message in buffer
 ```
 
 **Note:** When using the *BufferOnly* switch and writing content on screen everything will be printed on a single line but when piping buffer's content to a file it will be properly formatted.
