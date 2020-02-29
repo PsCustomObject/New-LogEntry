@@ -27,17 +27,6 @@ Content of the *TestLog.log* file will be
 
 > [02.29.2020 08:27:01 AM] - [Info]: This is a test message
 
-### Write message to log file without time stamp
-
-```powershell
-# Will write message to C:\Temp\TestLog.log
-New-LogEntry -LogMessage 'This is a test message without time stamp' -NoTimeStamp -LogFilePath  'C:\Temp\TestLog.log'
-```
-
-Content of the *TestLog.log* file will be
-
-> [Info] : This is a test message without time stamp
-
 ### Write message to log file without tag
 
 ```powershell
