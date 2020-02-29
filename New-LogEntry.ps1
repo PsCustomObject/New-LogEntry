@@ -49,12 +49,6 @@
 		PS C:\> New-LogEntry -LogMessage 'This is a test message' -LogFilePath  'C:\Temp\TestLog.log'
 		
 		[02.29.2020 08:27:01 AM] - [INFO]: This is a test message
-	
-	.OUTPUTS
-		string, string, string, string, string
-	
-	.NOTES
-		Additional information about the function.
 #>
 function New-LogEntry
 {
