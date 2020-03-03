@@ -1,4 +1,6 @@
-﻿<#
+﻿function New-LogEntry
+{
+    <#
 	.SYNOPSIS
 		Function serves as logging framework for PowerShell scripts.
 	
@@ -50,8 +52,7 @@
 		
 		[02.29.2020 08:27:01 AM] - [INFO]: This is a test message
 #>
-function New-LogEntry
-{
+    
 	[CmdletBinding(DefaultParameterSetName = 'Info')]
 	[OutputType([string], ParameterSetName = 'Info')]
 	[OutputType([string], ParameterSetName = 'Error')]

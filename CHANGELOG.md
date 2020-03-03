@@ -1,5 +1,9 @@
 # New-LogEntry - Change History
 
+## Version 2.0.3
+
+- Moved comment based help in function body
+
 ## Version 2.0.2
 
 - Removed the *-NoTimeStamp* parameter from function
