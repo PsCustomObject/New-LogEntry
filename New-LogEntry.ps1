@@ -104,12 +104,16 @@
 	)
 	
 	begin
-	{
-		# Instantiate new mutex to implement lock
-		[System.Threading.Mutex]$logMutex = New-Object System.Threading.Mutex($false, 'LogSemaphore')
-		
-		# Check if file locked
-		[void]$logMutex.WaitOne()
+    {
+        # Do not use mutex when buffering
+        if (($PsCmdlet.ParameterSetName) -notlike '*Buffer*')
+        {
+            # Instantiate new mutex to implement lock
+            [System.Threading.Mutex]$logMutex = New-Object System.Threading.Mutex($false, 'LogSemaphore')
+            
+            # Check if file locked
+            [void]$logMutex.WaitOne()
+        }
 		
 		# Get current date timestamp
 		[string]$currentDate = [System.DateTime]::Now.ToString('[MM/dd/yyyy hh:mm:ss tt]')
@@ -255,5 +259,15 @@
 				break
 			}
 		}
-	}
+    }
+    
+    end
+    {
+        # Do not use mutex when buffering
+        if (($PsCmdlet.ParameterSetName) -notlike '*Buffer*')
+        {
+            # Release mutex
+            [void]$logMutex.ReleaseMutex()
+        }
+    }
 }

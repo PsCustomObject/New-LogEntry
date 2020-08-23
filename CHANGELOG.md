@@ -1,5 +1,10 @@
 # New-LogEntry - Change History
 
+## Version 2.0.4
+
+- Fixed an issue causing cmdlet to hang when using **-BufferOnly** parameters
+- Implemented explicit mutex release
+
 ## Version 2.0.3
 
 - Moved comment based help in function body
@@ -17,13 +22,13 @@
 ## Version 2.0.0
 
 - Function now uses [Mutex objects](https://docs.microsoft.com/en-us/windows/win32/sync/mutex-objects) to avoid situations where function was called before lock on log file was released causing exceptions to be thrown and log lines to be missed
-- Code rewritten from scratch optimized for exeuction time
+- Code rewritten from scratch optimized for execution time
 - Implemented the *[Info]* tag by default prepended to all log messages when not using the *-IsError* or *-IsWarning* parameters
 - Optimized function to write log messages to a buffer rather than a file stream
 - Implemented *-BufferOnlyInfo*, *-BufferOnlyWarning* and *BufferOnlyError* to better handle redirection of messages to buffer rather than a file
 - Log messages will now be printed to console by default unless the *-NoConsole* parameter is used to allow easier troubleshooting of runtime scripts
 - Updated timestamp format to use **MM/dd/yyyy hh:mm:ss tt** format to clearly indicate AM/PM time of the log
-- Fixed an issue causnig function to throw an exception when log filename contained special characters like *[*
+- Fixed an issue causing function to throw an exception when log filename contained special characters like *[*
 
 ## Version 1.1.2
 
